@@ -1,0 +1,13 @@
+{
+  "ConnectionStrings": {
+    "DefaultConnectionString": "Host=_DB_HOST_;Port=_DB_PORT_;Database=_DB_NAME_;Username=_DB_USER_;Password=_DB_PASS_"
+  },
+  "Logging": {
+    "LogLevel": {
+      "Default": "Debug",
+      "System": "Information",
+      "Microsoft": "Information",
+      "System.Net.Http.HttpClient": "None"
+    }
+  }
+}
