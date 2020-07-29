@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shop", "Shop\Shop.csproj", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntityFramework", "EntityFramework\EntityFramework.csproj", "{14D9E297-BB5E-4EAD-B8FC-748E93823A23}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domains", "Domains\Domains.csproj", "{3123AC32-19CE-48A4-B536-E0D543D610CB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{14D9E297-BB5E-4EAD-B8FC-748E93823A23}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{14D9E297-BB5E-4EAD-B8FC-748E93823A23}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{14D9E297-BB5E-4EAD-B8FC-748E93823A23}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3123AC32-19CE-48A4-B536-E0D543D610CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3123AC32-19CE-48A4-B536-E0D543D610CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3123AC32-19CE-48A4-B536-E0D543D610CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3123AC32-19CE-48A4-B536-E0D543D610CB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

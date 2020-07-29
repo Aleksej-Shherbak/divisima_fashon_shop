@@ -1,6 +1,6 @@
 {
   "ConnectionStrings": {
-    "DefaultConnectionString": "Host=_DB_HOST_;Port=_DB_PORT_;Database=_DB_NAME_;Username=_DB_USER_;Password=_DB_PASS_"
+    "DivisimaDb": "Host=_DB_HOST_;Port=_DB_PORT_;Database=_DB_NAME_;Username=_DB_USER_;Password=_DB_PASS_"
   },
   "Logging": {
     "LogLevel": {

@@ -21,8 +21,9 @@ namespace EntityFramework
                 .AddJsonFile("appsettings.json", optional: true)
                 .AddJsonFile($"appsettings.{envName}.json", optional: true)
                 .Build();
+            
             var builder = new DbContextOptionsBuilder<ApplicationDbContext>();
-            var connectionString = configuration.GetConnectionString("DefaultConnectionString");
+            var connectionString = configuration.GetConnectionString("DivisimaDb");
             builder.UseNpgsql(connectionString, opt =>
             {
                 opt.MigrationsAssembly("EntityFramework");
