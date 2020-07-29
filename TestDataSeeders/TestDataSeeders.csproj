@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\EntityFramework\EntityFramework.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Content Include="..\Shared\SharedSettings.Development.json" Link="SharedSettings.Development.json" CopyToOutputDirectory="PreserveNewest" />
+        <Content Include="..\Shared\SharedSettings.Production.json" Link="SharedSettings.Production.json" CopyToOutputDirectory="PreserveNewest" />
+        <Content Include="..\Shared\SharedSettings.Local.json" Link="SharedSettings.Local.json" CopyToOutputDirectory="PreserveNewest" />
+    </ItemGroup>
+    
+</Project>
