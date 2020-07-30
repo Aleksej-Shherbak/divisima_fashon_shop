@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using Domains
+<!DOCTYPE html>
 <html lang="zxx">
 <head>
     <title>Divisima</title>
@@ -67,25 +68,37 @@
             </div>
         </div>
     </div>
+
     <nav class="main-navbar">
         <div class="container">
             <!-- menu -->
             <ul class="main-menu">
-                <li class="@(ViewContext.RouteData.Values["Controller"].ToString() == "Home" ? "active" : "")">
+                @*
+            class="@(ViewContext.RouteData.Values["Controller"].ToString() == "Home" ? "active" : "")"
+            *@
+                <li>
                     <a href="#">Home</a>
                 </li>
-                <li>
-                    <a href="#">Women</a>
-                </li>
-                <li>
-                    <a href="#">Men</a>
-                </li>
-                <li>
-                    <a href="#">
-                        Jewelry
-                        <span class="new">New</span>
-                    </a>
-                </li>
+                @foreach (var category in (List<Category>) ViewBag.Categories)
+                {
+                    if (category.IsNew)
+                    {
+                        <li>
+                            <a href="#">
+                                @category.Name
+                                <span class="new">New</span>
+                            </a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li>
+                            <a href="#">@category.Name</a>
+                        </li>
+                    }
+                }
+
+                @* // TODO ...
                 <li>
                     <a href="#">Shoes</a>
                     <ul class="sub-menu">
@@ -105,7 +118,7 @@
                             <a href="#">Flip Flops</a>
                         </li>
                     </ul>
-                </li>
+                </li>*@
             </ul>
         </div>
     </nav>

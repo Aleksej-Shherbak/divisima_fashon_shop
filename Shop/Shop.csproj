@@ -26,5 +26,9 @@
       <_ContentIncludedByDefault Remove="wwwroot\js\site.js" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Models" />
+    </ItemGroup>
+
 
 </Project>
