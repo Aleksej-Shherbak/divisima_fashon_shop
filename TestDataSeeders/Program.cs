@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using EntityFramework;
 using Microsoft.EntityFrameworkCore;
@@ -81,7 +82,18 @@ namespace TestDataSeeders
 
         private static void RunAllSeeders(ApplicationDbContext context)
         {
-            SeedBrands.RunSeedBrands(context);
+            // register seeders here
+            var seeders = SeederRegistrationConfig.GetSeeders();
+
+            seeders.ForEach(s =>
+            {
+                string seederName = s.GetType().Name;
+
+                Console.WriteLine($"Running {seederName} ...");
+                s.RunSeeding(context);
+                Console.WriteLine($"Done {seederName} ...");
+                Console.WriteLine(new string('=', 20));
+            });
         }
     }
 }

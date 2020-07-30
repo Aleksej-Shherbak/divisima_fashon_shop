@@ -22,7 +22,6 @@ namespace EntityFramework
             base.OnModelCreating(modelBuilder);
             
             FluentApiSetter.SetupFluentApi(modelBuilder);
-            
         }
     }
 }
