@@ -1,5 +1,5 @@
+using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using Domains;
 using EntityFramework;
 
@@ -44,8 +44,8 @@ namespace TestDataSeeders.Seeders
             };
             
             context.Brands.AddRange(brands);
-
             context.SaveChanges();
+            Console.WriteLine("Brands seeder done ...");
         }
     }
 }

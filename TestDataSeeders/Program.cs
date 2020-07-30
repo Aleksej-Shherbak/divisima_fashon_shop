@@ -42,10 +42,11 @@ namespace TestDataSeeders
             using var context = new ApplicationDbContext(builder.Options);
             context.Database.EnsureCreated();
 
-
-            Console.WriteLine("What do you want? ");
+            Console.WriteLine("What do you want?");
             Console.WriteLine("Press 1 to run seeding.");
-            Console.WriteLine("Press 2 to clear all database.");
+            Console.WriteLine("Press 2 to clear database.");
+            Console.WriteLine("Press 3 to clear database and run seeding.");
+            Console.WriteLine("Press 4 for exit.");
 
             var input = Console.ReadLine();
             switch (input)
@@ -53,24 +54,28 @@ namespace TestDataSeeders
                 case "1":
                     RunAllSeeders(context);
                     Console.WriteLine("ALL SEEDERS WERE APPLIED!!!");
-                break;
+                    break;
                 case "2":
-                    ClearUpDb(context);                
+                    ClearUpDb(context);
                     Console.WriteLine("YOU DATABASE WAS RECREATED!!!");
-
+                    break;
+                case "3":
+                    ClearUpDb(context);
+                    RunAllSeeders(context);
+                    Console.WriteLine("DATABASE WAS RECREATED AND ALL SEEDERS WERE APPLIED!!!");
+                    break;
+                case "4":
+                    Console.WriteLine("GOODBYE!!!");
                     break;
                 default:
                     Console.WriteLine("Unknown command. Please, run the program again");
                     break;
             }
-            
         }
 
         private static void ClearUpDb(ApplicationDbContext context)
         {
-            // TODO ... 
             context.Database.EnsureDeleted();
-            context.Database.EnsureCreated();
             context.Database.Migrate();
         }
 
