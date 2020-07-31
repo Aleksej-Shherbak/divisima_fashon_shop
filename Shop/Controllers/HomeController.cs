@@ -1,8 +1,10 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using EntityFramework;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Shop.Models;
 
 namespace Shop.Controllers
 {
@@ -19,8 +21,12 @@ namespace Shop.Controllers
 
         public async Task<IActionResult> Index()
         {
-            ViewBag.Categories = await _dbContext.Categories.ToListAsync();
-            return View();
+            var homePageModel = new HomePageModel
+            {
+                Categories = await _dbContext.Categories.OrderByDescending(x => x.SortWeight).ToListAsync()
+            };
+            
+            return View(homePageModel);
         }
     }
 }

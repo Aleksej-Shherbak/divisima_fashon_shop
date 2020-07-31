@@ -81,19 +81,28 @@
                 </li>
                 @foreach (var category in (List<Category>) ViewBag.Categories)
                 {
-                    if (category.IsNew)
+                    /* print top level categories */
+                    @if (category.ParentCategoryId == null)
                     {
                         <li>
                             <a href="#">
                                 @category.Name
-                                <span class="new">New</span>
+                                @if (category.IsNew)
+                                {
+                                    <span class="new">New</span>
+                                }
                             </a>
-                        </li>
-                    }
-                    else
-                    {
-                        <li>
-                            <a href="#">@category.Name</a>
+                            @if (category.ChildrenCategories != null)
+                            {
+                                <ul class="sub-menu">
+                                    @foreach (var childCategory in category.ChildrenCategories)
+                                    {
+                                        <li>
+                                            <a href="#">@childCategory.Name</a>
+                                        </li>
+                                    }
+                                </ul>
+                            }
                         </li>
                     }
                 }

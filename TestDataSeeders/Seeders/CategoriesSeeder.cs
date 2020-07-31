@@ -13,19 +13,47 @@ namespace TestDataSeeders.Seeders
                 new Category
                 {
                     Name = "Dresses",
+                    SortWeight = 1000,
                 },
                 new Category
                 {
                     Name = "Jeans",
+                    SortWeight = 999,
                 },
                 new Category
                 {
-                    Name = "Footwear",
+                    Name = "Shoes",
+                    ChildrenCategories = new HashSet<Category>
+                    {
+                        new Category
+                        {
+                            Name = "Sneakers",
+                        },
+                        new Category
+                        {
+                            Name = "Sandals",
+                        },
+                        new Category
+                        {
+                            Name = "Formal Shoes",
+                        },
+                        new Category
+                        {
+                            Name = "Boots",
+                        },
+                        new Category
+                        {
+                            Name = "Flip Flops",
+                            SortWeight = 998,
+                        }
+                    }
                 },
                 new Category
                 {
                     Name = "Women's bags",
-                    IsNew = true
+                    IsNew = true,
+                    SortWeight = 997,
+
                 },
             };
             

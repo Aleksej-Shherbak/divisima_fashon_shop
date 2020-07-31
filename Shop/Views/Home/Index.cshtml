@@ -1,6 +1,7 @@
-﻿@{
+﻿@model Shop.Models.HomePageModel;
+@{
     ViewData["Title"] = "Home Page";
-    ViewData["Categories"] = ViewBag.Categories;
+    ViewData["Categories"] = Model.Categories;
 }
 
 <!-- Hero section -->
