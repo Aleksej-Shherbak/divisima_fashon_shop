@@ -23,7 +23,9 @@ namespace Shop.Controllers
         {
             var homePageModel = new HomePageModel
             {
-                Categories = await _dbContext.Categories.OrderByDescending(x => x.SortWeight).ToListAsync()
+                Categories = await _dbContext.Categories.OrderByDescending(x => x.SortWeight).ToListAsync(),
+                SliderProducts = await _dbContext.Products.Include(x => x.Brand).
+                    Where(x => x.ShowOnMainPageSlider).ToListAsync(),
             };
             
             return View(homePageModel);

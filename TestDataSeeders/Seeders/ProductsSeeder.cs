@@ -24,14 +24,31 @@ namespace TestDataSeeders.Seeders
                         Category = category,
                         Description = faker.Random.Words(faker.Random.Number(15, 28)),
                         Name = faker.Random.Words(faker.Random.Number(2, 4)),
-                        Price = faker.Random.Number(20, 5000),
+                        Price = faker.Random.Number(20, 500),
                         IsHit = faker.Random.ArrayElement(new[] {true, false}),
                         ShortDescription = faker.Random.Words(faker.Random.Number(8, 10)),
                         ImagePath = faker.Image.LoremFlickrUrl(264, 409, category.Name, false, true),
                     };
-                });
-
+                }).ToList();
+            
             context.Products.AddRange(products);
+            
+            var randomProduct = faker.Random.ListItem(products);
+            randomProduct.ShowOnMainPageSlider = true;
+            randomProduct.MainSliderImagePath =
+                faker.Image.LoremFlickrUrl(1200, 600, "girl,fashion,dress,modern", false, false);
+            
+            randomProduct = faker.Random.ListItem(products);
+            randomProduct.ShowOnMainPageSlider = true;
+            randomProduct.MainSliderImagePath =
+                faker.Image.LoremFlickrUrl(1200, 600, "girl,fashion,dress,green", false, false);
+            
+            randomProduct = faker.Random.ListItem(products);
+            randomProduct.ShowOnMainPageSlider = true;
+            randomProduct.MainSliderImagePath =
+                faker.Image.LoremFlickrUrl(1200, 600, "girl,fashion,dress", false, false);
+
+            
             context.SaveChanges();
         }
     }
