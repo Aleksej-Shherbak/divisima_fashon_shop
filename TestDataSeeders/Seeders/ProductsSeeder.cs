@@ -25,7 +25,9 @@ namespace TestDataSeeders.Seeders
                         Description = faker.Random.Words(faker.Random.Number(15, 28)),
                         Name = faker.Random.Words(faker.Random.Number(2, 4)),
                         Price = faker.Random.Number(20, 500),
+                        SaleScore = faker.Random.Number(20, 500),
                         IsHit = faker.Random.ArrayElement(new[] {true, false}),
+                        OnSale = faker.Random.ArrayElement(new[] {true, false}),
                         ShortDescription = faker.Random.Words(faker.Random.Number(8, 10)),
                         ImagePath = faker.Image.LoremFlickrUrl(264, 409, category.Name, false, true),
                     };
@@ -36,17 +38,17 @@ namespace TestDataSeeders.Seeders
             var randomProduct = faker.Random.ListItem(products);
             randomProduct.ShowOnMainPageSlider = true;
             randomProduct.MainSliderImagePath =
-                faker.Image.LoremFlickrUrl(1200, 600, "girl,fashion,dress,modern", false, false);
+                faker.Image.LoremFlickrUrl(1200, 600, "girl,fashion,dress,modern", true, false);
             
             randomProduct = faker.Random.ListItem(products);
             randomProduct.ShowOnMainPageSlider = true;
             randomProduct.MainSliderImagePath =
-                faker.Image.LoremFlickrUrl(1200, 600, "girl,fashion,dress,green", false, false);
+                faker.Image.LoremFlickrUrl(1200, 600, "girl,fashion,dress,green,people", true, false);
             
             randomProduct = faker.Random.ListItem(products);
             randomProduct.ShowOnMainPageSlider = true;
             randomProduct.MainSliderImagePath =
-                faker.Image.LoremFlickrUrl(1200, 600, "girl,fashion,dress", false, false);
+                faker.Image.LoremFlickrUrl(1200, 600, "girl,fashion,dress,people", true, false);
 
             
             context.SaveChanges();
