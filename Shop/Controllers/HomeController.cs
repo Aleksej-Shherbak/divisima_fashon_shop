@@ -23,28 +23,32 @@ namespace Shop.Controllers
         {
             // TODO брать эту настройку из базы
             const int topSellingPerThisYear = 100;
-            
+
             var topSellingProducts = await _dbContext.Products
                 .Include(x => x.Category)
                 .Include(x => x.Brand)
                 .Where(x => x.SaleScore > topSellingPerThisYear).ToListAsync();
 
-            var topSellingProductsCategory = await _dbContext.Products.Include(x => x.Category)
+            var topSellingProductsCategory = await _dbContext.Products
+                .Include(x => x.Category)
                 .Where(x => x.SaleScore > topSellingPerThisYear)
                 .Select(x => x.Category).Distinct().ToListAsync();
-                
+
+            var categories = await _dbContext.Categories.OrderByDescending(x => x.SortWeight)
+                .ToListAsync();
+
+            var sliderProducts = await _dbContext.Products.Include(x => x.Brand)
+                .Where(x => x.ShowOnMainPageSlider)
+                .ToListAsync();
+
             var homePageModel = new HomePageModel
             {
-                Categories = await _dbContext.Categories.OrderByDescending(x => x.SortWeight).ToListAsync(),
-                
-                SliderProducts = await _dbContext.Products.Include(x => x.Brand).
-                    Where(x => x.ShowOnMainPageSlider).ToListAsync(),
-                
-                TopSellingProducts = topSellingProducts, 
+                Categories = categories,
+                SliderProducts = sliderProducts,
+                TopSellingProducts = topSellingProducts,
                 TopSellingProductsCategory = topSellingProductsCategory,
-                    
-            };    
-            
+            };
+
             return View(homePageModel);
         }
     }
