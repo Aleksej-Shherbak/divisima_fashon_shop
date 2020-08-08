@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Domains
 {
+    [Serializable]
     public class Category
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

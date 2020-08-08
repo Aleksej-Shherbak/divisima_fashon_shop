@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -5,7 +6,6 @@ using Domains;
 using EntityFramework;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Distributed;
-using Microsoft.VisualBasic.CompilerServices;
 using Services.Products.Abstract;
 using Utils;
 
@@ -30,15 +30,26 @@ namespace Services.Products.Concrete
                 sellingScores = 100;
             }
 
-            var topSellingProductsCategoriesList =
-                ObjectUtils.ConvertByteArrayToObject<List<Category>>(
-                    (await _cache.GetAsync("topSellingProductsCategoriesList")));
+            var topSellingProductsCategoriesListFromRedis =
+                await _cache.GetAsync("TopSellingProductsCategoriesList");
 
-            // TODO сначала попытаться взять это из редиса
-            topSellingProductsCategoriesList = await _dbContext.Products.AsNoTracking()
+            if (topSellingProductsCategoriesListFromRedis != null)
+            {
+                return ObjectUtils.ConvertByteArrayToObject<List<Category>>(topSellingProductsCategoriesListFromRedis);
+            }
+
+            var topSellingProductsCategoriesList = await _dbContext.Products.AsNoTracking()
                 .Include(x => x.Category).AsNoTracking()
                 .Where(x => x.SaleScore > sellingScores)
                 .Select(x => x.Category).Distinct().ToListAsync();
+
+            await _cache.SetAsync("TopSellingProductsCategoriesList",
+                ObjectUtils.ConvertAnyObjectToByteArray(topSellingProductsCategoriesList),
+                new DistributedCacheEntryOptions
+                {
+                    SlidingExpiration = TimeSpan.FromMinutes(5)
+                });
+
 
             return topSellingProductsCategoriesList;
         }
