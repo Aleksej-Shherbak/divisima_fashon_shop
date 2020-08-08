@@ -43,12 +43,12 @@ namespace Services.Products.Concrete
                 .Where(x => x.SaleScore > sellingScores)
                 .Select(x => x.Category).Distinct().ToListAsync();
 
+            var options = new DistributedCacheEntryOptions()
+                .SetSlidingExpiration(TimeSpan.FromMinutes(5));
+            
             await _cache.SetAsync("TopSellingProductsCategoriesList",
                 ObjectUtils.ConvertAnyObjectToByteArray(topSellingProductsCategoriesList),
-                new DistributedCacheEntryOptions
-                {
-                    SlidingExpiration = TimeSpan.FromMinutes(5)
-                });
+                options);
 
 
             return topSellingProductsCategoriesList;
