@@ -6,6 +6,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Services.Products.Abstract;
+using Services.Products.Concrete;
 
 namespace Shop
 {
@@ -24,15 +26,23 @@ namespace Shop
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseNpgsql(
                     Configuration.GetConnectionString("DivisimaDb")));
-            
+
             /*services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();*/
-            
+
             services.AddRouting(options => options.LowercaseUrls = true);
-            
+
             services.AddControllersWithViews();
-            
+
             services.AddRazorPages();
+
+            services.AddStackExchangeRedisCache(options =>
+            {
+                options.Configuration = Configuration.GetConnectionString("Redis");
+                options.InstanceName = "RedisInstance";
+            });
+
+            Di.SetupDataDi(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

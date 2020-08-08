@@ -9,10 +9,12 @@
         <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.1" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.3" />
         <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.2" />
+        <PackageReference Include="Redi.StackExchangeRedis.Cache.Extension" Version="1.5.3" />
     </ItemGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\EntityFramework\EntityFramework.csproj" />
+      <ProjectReference Include="..\Services\Services.csproj" />
     </ItemGroup>
 
     <ItemGroup>
