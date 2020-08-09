@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using Domains;
 using Microsoft.AspNetCore.Mvc;
@@ -24,13 +25,21 @@ namespace Shop.Controllers
 
         public async Task<IActionResult> Index()
         {
+            Stopwatch stopWatch = new Stopwatch();
+            stopWatch.Start();
             var homePageModel = new HomePageModel
             {
                 Categories = await _categoryService.GetCategoriesOrderedBySortWeight() ?? new List<Category>(),
                 SliderProducts = await _productService.GetProductsForShowingOnMainPageSlider() ?? new List<Product>(),
-                TopSellingProducts = await _productService.GetProductsWithBrandsBySellingScoresAndCategoryIdAsync() ?? new List<Product>(),
-                TopSellingProductsCategory = await _categoryService.GetCategoriesBySellingScoresAsync() ?? new List<Category>(),
+                TopSellingProducts = await _productService.GetProductsWithBrandsBySellingScoresAndCategoryIdAsync() ??
+                                     new List<Product>(),
+                TopSellingProductsCategory =
+                    await _categoryService.GetCategoriesBySellingScoresAsync() ?? new List<Category>(),
             };
+
+            _logger.LogInformation(
+                $"Обращение на {ControllerContext.ActionDescriptor.ControllerName}/{ControllerContext.ActionDescriptor.ActionName}. " +
+                $"Выполнено за: {stopWatch.ElapsedMilliseconds} ms");
 
             return View(homePageModel);
         }

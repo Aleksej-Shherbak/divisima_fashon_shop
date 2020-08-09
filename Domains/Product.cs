@@ -1,9 +1,9 @@
 using System;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Domains
 {
+    [Serializable]
     public class Product
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

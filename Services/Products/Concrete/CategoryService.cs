@@ -30,8 +30,10 @@ namespace Services.Products.Concrete
                 sellingScores = 100;
             }
 
+            var redisKey = $"GetCategoriesBySellingScoresAsync(sellingScores={sellingScores})";
+
             var topSellingProductsCategoriesListFromRedis =
-                await _cache.GetAsync("TopSellingProductsCategoriesList");
+                await _cache.GetAsync(redisKey);
 
             if (topSellingProductsCategoriesListFromRedis != null)
             {
@@ -46,20 +48,36 @@ namespace Services.Products.Concrete
             var options = new DistributedCacheEntryOptions()
                 .SetSlidingExpiration(TimeSpan.FromMinutes(5));
             
-            await _cache.SetAsync("TopSellingProductsCategoriesList",
+            await _cache.SetAsync(redisKey,
                 ObjectUtils.ConvertAnyObjectToByteArray(topSellingProductsCategoriesList),
                 options);
-
-
+            
             return topSellingProductsCategoriesList;
         }
 
         public async Task<List<Category>> GetCategoriesOrderedBySortWeight()
         {
-            // TODO сначала попытаться взять это из редиса
-            var categories = await _dbContext.Categories.OrderByDescending(x => x.SortWeight)
+            var redisKey = "GetCategoriesOrderedBySortWeight";
+            var categoriesFromRedis =
+                await _cache.GetAsync(redisKey);
+
+            if (categoriesFromRedis != null)
+            {
+                return ObjectUtils.ConvertByteArrayToObject<List<Category>>(categoriesFromRedis);
+            }
+            
+            var categories = await _dbContext
+                .Categories.AsNoTracking()
+                .OrderByDescending(x => x.SortWeight)
                 .ToListAsync();
 
+            var options = new DistributedCacheEntryOptions()
+                .SetSlidingExpiration(TimeSpan.FromMinutes(5));
+            
+            await _cache.SetAsync(redisKey,
+                ObjectUtils.ConvertAnyObjectToByteArray(categories),
+                options);
+            
             return categories;
         }
     }

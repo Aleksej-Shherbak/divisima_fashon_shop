@@ -1,8 +1,10 @@
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Domains
 {
+    [Serializable]
     public class Brand
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
